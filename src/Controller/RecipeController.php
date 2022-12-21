@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Recipe;
-use App\Form\RecipeType;
+use App\Form\Recipe1Type;
 use App\Repository\RecipeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/recipe')]
 class RecipeController extends AbstractController
 {
-    #[Route('/recipe', name: 'app_recipe_index', methods: ['GET'])]
+    #[Route('/', name: 'app_recipe_index', methods: ['GET'])]
     public function index(RecipeRepository $recipeRepository): Response
     {
         return $this->render('recipe/index.html.twig', [
@@ -25,7 +25,7 @@ class RecipeController extends AbstractController
     public function new(Request $request, RecipeRepository $recipeRepository): Response
     {
         $recipe = new Recipe();
-        $form = $this->createForm(RecipeType::class, $recipe);
+        $form = $this->createForm(Recipe1Type::class, $recipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -51,7 +51,7 @@ class RecipeController extends AbstractController
     #[Route('/{id}/edit', name: 'app_recipe_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Recipe $recipe, RecipeRepository $recipeRepository): Response
     {
-        $form = $this->createForm(RecipeType::class, $recipe);
+        $form = $this->createForm(Recipe1Type::class, $recipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
